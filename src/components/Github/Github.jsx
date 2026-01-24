@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
 
 export default function Github() {
-    const data = useLoaderData();
-    console.log(data);
     const [followers, setFollowers] = useState([]);
     const [followers_url, setFollowers_url] = useState("");
 
     useEffect(() => {
-       setFollowers(data.followers);
-       setFollowers_url(data.avatar_url);
-
-        // fetch("https://api.github.com/users/kkv123")
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         setFollowers(data.followers);
-        //         setFollowers_url(data.avatar_url);
-        //     });
-        // console.log(followers_url);
+        fetch("https://api.github.com/users/kkv123")
+            .then((res) => res.json())
+            .then((data) => {
+                setFollowers(data.followers);
+                setFollowers_url(data.avatar_url);
+            });
+        console.log(followers_url);
     }, []);
     return (
         <div className="mx-auto   w-full max-w-7xl h-[40vh] flex flex-row  items-center mt-20 mb-20">
@@ -30,10 +24,4 @@ export default function Github() {
         </div>
     );
 
-}
-
-export const loaderElement = async () => {
-        const res = await fetch("https://api.github.com/users/kkv123");
-        const data = await res.json();
-        return data ;
 }
